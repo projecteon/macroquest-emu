@@ -61,9 +61,6 @@ jobs:
       - name: Build MQ2BardSwap
         run: msbuild plugins/mq2bardswap/MQ2BardSwap.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
-      - name: Build MQ2EasyFind
-        run: msbuild plugins/mq2easyfind/MQ2EasyFind.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
-
       - name: Build MQ2EQBC
         run: msbuild plugins/mq2eqbc/MQ2EQBC.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
