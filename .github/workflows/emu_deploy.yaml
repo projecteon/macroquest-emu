@@ -26,7 +26,10 @@ jobs:
         
       - name: Add MQ2BardSwap to submodules
         run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2BardSwap.git plugins/mq2bardswap
-        
+      
+      - name: Add MQ2EasyFind to submodules
+        run: git submodule add -b master -f https://github.com/brainiac/MQ2EasyFind.git plugins/MQ2EasyFind
+      
       - name: Add MQ2EQBC to submodules
         run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2EQBC.git plugins/mq2eqbc
         
@@ -80,4 +83,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: MacroQuest.zip
-          path: D:\a\macroquest\macroquest\build\bin\${{env.config}}
+          path: ${{ github.workspace }}\build\bin\${{env.config}}
