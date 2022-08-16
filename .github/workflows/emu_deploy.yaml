@@ -1,0 +1,95 @@
+name: Build MacroQuest [EMU] Release
+
+on:
+  push:
+    branches: [ "emu" ]
+  pull_request:
+    branches: [ "emu" ]
+
+env:
+  config: Release
+  platform: Win32
+
+jobs:
+  build:
+    runs-on: [windows-2022]
+    
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          ref: emu
+          submodules: recursive
+      
+      - name: Add MQ2AdvPath to submodules
+        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2AdvPath.git plugins/mq2advpath
+        
+      - name: Add MQ2BardSwap to submodules
+        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2BardSwap.git plugins/mq2bardswap
+        
+      - name: Add MQ2EasyFind to submodules
+        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2EasyFind.git plugins/mq2easyfind
+        
+      - name: Add MQ2EQBC to submodules
+        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2EQBC.git plugins/mq2eqbc
+        
+      - name: Add MQ2Exchange to submodules
+        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2Exchange.git plugins/mq2exchange
+        
+      - name: Add MQ2MoveUtils to submodules
+        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2MoveUtils.git plugins/mq2moveutils
+      
+      - name: Add MQNav to submodules
+        run: git submodule add -f https://github.com/brainiac/MQ2Nav.git plugins/mq2nav
+        
+      - name: Add MQ2NetBots to submodules
+        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2NetBots.git plugins/mq2netbots
+        
+      - name: Add MQ2SpawnMaster to submodules
+        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2SpawnMaster.git plugins/mq2spawnmaster
+        
+      - name: Add MQ2Twist to submodules
+        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2Twist.git plugins/mq2twist
+      
+      - name: setup-msbuild
+        uses: microsoft/setup-msbuild@v1.1
+        
+      - name: Build Macroquest
+        shell: pwsh
+        run: msbuild src/MacroQuest.sln /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2AdvPath
+        run: msbuild plugins/mq2advpath/MQ2AdvPath.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2BardSwap
+        run: msbuild plugins/mq2bardswap/MQ2BardSwap.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2EasyFind
+        run: msbuild plugins/mq2easyfind/MQ2EasyFind.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2EQBC
+        run: msbuild plugins/mq2eqbc/MQ2EQBC.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2Exchange
+        run: msbuild plugins/mq2exchange/MQ2Exchange.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2MoveUtils
+        run: msbuild plugins/mq2moveutils/MQ2MoveUtils.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQNav
+        run: msbuild plugins/mq2nav/MQ2Nav.sln /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2NetBots
+        run: msbuild plugins/mq2netbots/MQ2NetBots.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2SpawnMaster
+        run: msbuild plugins/mq2spawnmaster/MQ2SpawnMaster.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2Twist
+        run: msbuild plugins/mq2twist/MQ2Twist.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Publish Macroquest
+        uses: actions/upload-artifact@v3
+        with:
+          name: MacroQuest.zip
+          path: D:\a\macroquest\macroquest\build\bin\${{env.config}}
