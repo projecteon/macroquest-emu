@@ -27,9 +27,6 @@ jobs:
       - name: Add MQ2BardSwap to submodules
         run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2BardSwap.git plugins/mq2bardswap
         
-      - name: Add MQ2EasyFind to submodules
-        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2EasyFind.git plugins/mq2easyfind
-        
       - name: Add MQ2EQBC to submodules
         run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2EQBC.git plugins/mq2eqbc
         
