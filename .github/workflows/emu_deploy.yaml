@@ -54,6 +54,9 @@ jobs:
       - name: Build Macroquest
         shell: pwsh
         run: msbuild src/MacroQuest.sln /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+      
+      - name: Build MQ2EQBC Server
+        run: msbuild plugins/mq2eqbc/server/EQBCS.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
       - name: Build MQ2AdvPath
         run: msbuild plugins/mq2advpath/MQ2AdvPath.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
@@ -82,5 +85,5 @@ jobs:
       - name: Publish Macroquest
         uses: actions/upload-artifact@v3
         with:
-          name: MacroQuest.zip
+          name: MacroQuest
           path: ${{ github.workspace }}\build\bin\${{env.config}}
