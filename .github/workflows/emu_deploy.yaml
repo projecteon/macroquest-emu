@@ -10,7 +10,7 @@ env:
   platform: Win32
 
 jobs:
-  build:
+  release:
     runs-on: [windows-2022]
     
     steps:
