@@ -94,7 +94,9 @@ jobs:
         run: msbuild plugins/mq2twist/MQ2Twist.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
       - name: Publish Macroquest
-        uses: actions/upload-artifact@v3
+        uses: softprops/action-gh-release@v1
         with:
           name: MacroQuest
           path: ${{ github.workspace }}\build\bin\${{env.config}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
