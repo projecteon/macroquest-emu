@@ -1,10 +1,9 @@
 name: Build MacroQuest [EMU] Release
 
+
 on:
-  push:
-    branches: [ "emu" ]
-  pull_request:
-    branches: [ "emu" ]
+  release:
+    types: [published]
 
 env:
   config: Release
