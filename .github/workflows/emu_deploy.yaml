@@ -1,16 +1,17 @@
 name: Build MacroQuest [EMU] Release
 
-
 on:
-  release:
-    types: [published]
+  push:
+    branches: [ "emu" ]
+  pull_request:
+    branches: [ "emu" ]
 
 env:
   config: Release
   platform: Win32
 
 jobs:
-  release:
+  build:
     runs-on: [windows-2022]
     
     steps:
@@ -94,9 +95,7 @@ jobs:
         run: msbuild plugins/mq2twist/MQ2Twist.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
       - name: Publish Macroquest
-        uses: softprops/action-gh-release@v1
+        uses: actions/upload-artifact@v3
         with:
           name: MacroQuest
           path: ${{ github.workspace }}\build\bin\${{env.config}}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
