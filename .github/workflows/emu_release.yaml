@@ -95,11 +95,10 @@ jobs:
       - name: Pre-Publish  
         shell: bash
         run: |
-            ls ${{ github.workspace }}\build\bin\${{env.config}}\*
+            pwd
+            ls ${{ github.workspace }}\build\bin\${{ env.config }}\.
             # Pack files
-            7z a -tzip MacroQuest_Emu.zip ${{ github.workspace }}\build\bin\${{env.config}}\*
-        env:
-            ReleaseName: MacroQuest-${{ github.ref_name }}
+            7z a -tzip MacroQuest_Emu.zip ${{ github.workspace }}\build\bin\${{ env.config }}\.
 
       - name: Publish
         uses: softprops/action-gh-release@v1

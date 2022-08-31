@@ -94,6 +94,14 @@ jobs:
       - name: Build MQ2Twist
         run: msbuild plugins/mq2twist/MQ2Twist.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
+      - name: Pre-Publish  
+        shell: bash
+        run: |
+            pwd
+            ls ${{ github.workspace }}\build\bin\${{ env.config }}\.
+            # Pack files
+            7z a -tzip MacroQuest_Emu.zip ${{ github.workspace }}\build\bin\${{ env.config }}\.
+
       - name: Publish Macroquest
         uses: actions/upload-artifact@v3
         with:
