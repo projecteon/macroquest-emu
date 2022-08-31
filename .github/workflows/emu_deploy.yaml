@@ -1,4 +1,4 @@
-name: Build MacroQuest [EMU] Release
+name: CD MacroQuest [EMU] 
 
 on:
   push:

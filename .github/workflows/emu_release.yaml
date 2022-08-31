@@ -1,4 +1,4 @@
-name: Build MacroQuest [EMU] Release
+name: Release MacroQuest [EMU]
 
 on:
   release:
