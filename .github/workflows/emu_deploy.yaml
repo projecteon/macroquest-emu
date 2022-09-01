@@ -9,7 +9,6 @@ on:
 env:
   config: Release
   platform: Win32
-  publishDir: ./build/bin/Release/
 
 jobs:
   build:
@@ -94,12 +93,6 @@ jobs:
 
       - name: Build MQ2Twist
         run: msbuild plugins/mq2twist/MQ2Twist.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
-
-      - name: Pre-Publish  
-        shell: bash
-        run: |
-            # Pack files
-            7z a -tzip MacroQuest_Emu.zip $publishDir/*
 
       - name: Publish Macroquest
         uses: actions/upload-artifact@v3
