@@ -7,6 +7,7 @@ on:
 env:
   config: Release
   platform: Win32
+  publishDir: ./build/bin/Release/
 
 jobs:
   release:
@@ -95,14 +96,12 @@ jobs:
       - name: Pre-Publish  
         shell: bash
         run: |
-            pwd
-            ls ${{ github.workspace }}\build\bin\${{ env.config }}\.
             # Pack files
-            7z a -tzip MacroQuest_Emu.zip ${{ github.workspace }}\build\bin\${{ env.config }}\.
+            7z a -tzip MacroQuest_Emu.zip $publishDir/*
 
       - name: Publish
         uses: softprops/action-gh-release@v1
         with:
-            files: "MacroQuest*"
+            files: "MacroQuest_Emu.zip"
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
