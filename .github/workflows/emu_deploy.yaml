@@ -9,6 +9,7 @@ on:
 env:
   config: Release
   platform: Win32
+  publishDir: ./build/bin/Release/
 
 jobs:
   build:
