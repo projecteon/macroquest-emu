@@ -26,6 +26,9 @@ jobs:
       - name: Add MQ2BardSwap to submodules
         run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2BardSwap.git plugins/mq2bardswap
       
+      - name: Add MQ2Dan to submodules
+        run: git submodule add -b master -f https://github.com/dannuic/MQ2Dan.git plugins/mq2Dan
+      
       - name: Add MQ2EasyFind to submodules
         run: git submodule add -b master -f https://github.com/brainiac/MQ2EasyFind.git plugins/MQ2EasyFind
       
@@ -68,6 +71,9 @@ jobs:
 
       - name: Build MQ2BardSwap
         run: msbuild plugins/mq2bardswap/MQ2BardSwap.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2Dannet
+        run: msbuild plugins/mq2Dan/MQ2DanNet/MQ2DanNet.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
       - name: Build MQ2EQBC
         run: msbuild plugins/mq2eqbc/MQ2EQBC.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
