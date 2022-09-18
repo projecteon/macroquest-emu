@@ -902,16 +902,16 @@ static void LuaInfoCommand(const std::optional<std::string>& script = std::nullo
 	}
 	else
 	{
-		WriteChatStatus("|  PID  |    NAME    |    START    |     END     |   STATUS   |");
+		WriteChatStatus("|  PID  |         NAME         |    START    |     END     |   STATUS   |");
 
 		for (const auto& [pid, info] : s_infoMap)
 		{
 			fmt::memory_buffer line;
-			fmt::format_to(fmt::appender(line), "|{:^7}|{:^12}|{:^13}|{:^13}|{:^12}|",
+			fmt::format_to(fmt::appender(line), "|{:^7}|{:^22}|{:^13}|{:^13}|{:^12}|",
 				pid,
-				info.name.length() > 12 ? info.name.substr(0, 9) + "..." : info.name,
-				info.startTime,
-				info.endTime,
+				info.name.length() > 22 ? info.name.substr(0, 19) + "..." : info.name,
+				(info.startTime != std::chrono::system_clock::time_point() ? fmt::format("{:%H:%M:%S}", info.startTime) : std::string()),
+				(info.endTime != std::chrono::system_clock::time_point() ? fmt::format("{:%H:%M:%S}", info.endTime) : std::string()),
 				static_cast<int>(info.status));
 			WriteChatStatus("%.*s", line.size(), line.data());
 		}
@@ -1086,8 +1086,12 @@ void LuaEnvironmentSettings::ConfigureLuaState(sol::state_view sv)
 	}
 
 	// always search the local dir first, then luarocks in modules, then anything specified by the user, then the default paths
-	sv["package"]["path"] = fmt::format("{}\\?.lua;{}\\luarocks\\share\\lua\\{}\\?.lua;{}{}",
-		luaDir, moduleDir, m_version, luaRequirePaths.empty() ? "" : join(luaRequirePaths, ";") + ";", m_packagePath);
+	sv["package"]["path"] = fmt::format("{luaDir}\\?.lua;{moduleDir}\\luarocks\\share\\lua\\{luaVersion}\\?.lua;{moduleDir}\\luarocks\\share\\lua\\{luaVersion}\\?\\init.lua;{additionalPaths}{originalPath}",
+		fmt::arg("luaDir", luaDir),
+		fmt::arg("moduleDir", moduleDir),
+		fmt::arg("luaVersion", m_version),
+		fmt::arg("additionalPaths", luaRequirePaths.empty() ? "" : join(luaRequirePaths, ";") + ";"),
+		fmt::arg("originalPath", m_packagePath));
 
 	sv["package"]["cpath"] = fmt::format("{}\\?.dll;{}\\luarocks\\lib\\lua\\{}\\?.dll;{}{}",
 		luaDir, moduleDir, m_version, dllRequirePaths.empty() ? "" : join(dllRequirePaths, ";") + ";", m_packageCPath);
