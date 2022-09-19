@@ -3,6 +3,13 @@ September 18, 2022:
   to the mq settings window under a new "Chat" section. (#618)
 - emu: Fix title bar click events on MQ2ChatWnd. (#616)
 - emu: Fix tabselect crash. (#622)
+- emu: Fix crash when checking spell stacking. (#624)
+- emu: Fix crash when interacting with merchants. (#626)
+- emu: Re-introduce GroupLeaderExp, GroupLeaderPoints, PctGroupLeaderExp, RaidLeaderExp,
+  RaidLeaderPoints, PctRaidLeaderExp. (#625)
+- emu: Re-introduce support for LAMarkNPC, LANPCHealth, LADelegateMA, LADelegateMarkNPC,
+  LAInspectBuffs, LASpellAwareness, LAOffenseEnhancement, LAManaEnhancement, LAHealthEnhancement,
+  LAHealthRegen, LAFindPathPC, LAHoTT (#625)
 
 September 7, 2022:
 - /captioncolor will work when typed in EQ chat windows again (#619)
