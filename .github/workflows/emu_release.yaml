@@ -27,7 +27,7 @@ jobs:
         run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2BardSwap.git plugins/mq2bardswap
       
       - name: Add MQ2ConstantAffinity to submodules
-        run: git submodule add -b master -f https://github.com/martinlindhe/MQ2ConstantAffinity.git plugins/mq2constantaffinity
+        run: git submodule add -b main -f https://github.com/martinlindhe/MQ2ConstantAffinity.git plugins/mq2constantaffinity
       
       - name: Add MQ2Dan to submodules
         run: git submodule add -b master -f https://github.com/dannuic/MQ2Dan.git plugins/mq2Dan
