@@ -33,6 +33,9 @@ jobs:
       - name: Add MQ2Dan to submodules
         run: git submodule add -b master -f https://github.com/dannuic/MQ2Dan.git plugins/mq2Dan
       
+      - name: Add MQ2DotNet to submodules
+        run: git submodule add -b master-mqnext -f https://github.com/projecteon/MQ2DotNet.git plugins/mq2dotnet
+      
       - name: Add MQ2EasyFind to submodules
         run: git submodule add -b master -f https://github.com/brainiac/MQ2EasyFind.git plugins/MQ2EasyFind
       
@@ -81,6 +84,12 @@ jobs:
 
       - name: Build MQ2Dannet
         run: msbuild plugins/mq2Dan/MQ2DanNet/MQ2DanNet.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2DotNetLoader
+        run: msbuild plugins/mq2dotnet/MQ2DotNetLoader/MQ2DotNetLoader.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2DotNet
+        run: msbuild plugins/mq2dotnet/MQ2DotNet/MQ2DotNet.csproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
       - name: Build MQ2EQBC
         run: msbuild plugins/mq2eqbc/MQ2EQBC.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
