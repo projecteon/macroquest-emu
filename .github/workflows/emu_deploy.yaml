@@ -34,7 +34,7 @@ jobs:
         run: git submodule add -b master -f https://github.com/dannuic/MQ2Dan.git plugins/mq2Dan
       
       - name: Add MQ2DotNet to submodules
-        run: git submodule add -b master-mqnext -f https://github.com/projecteon/MQ2DotNet.git plugins/mq2dotnet
+        run: git submodule add -b master -f https://github.com/projecteon/MQ2DotNet.git plugins/mq2dotnet
       
       - name: Add MQ2EasyFind to submodules
         run: git submodule add -b master -f https://github.com/brainiac/MQ2EasyFind.git plugins/MQ2EasyFind
