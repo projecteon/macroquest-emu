@@ -1337,7 +1337,7 @@ void DeleteAllMapLocs()
 
 static void UpdateMapLocIndexes()
 {
-	for (size_t i = 0; i < gMapLocTemplates.size(); ++i)
+	for (int i = 0; i < (int)gMapLocTemplates.size(); ++i)
 	{
 		MapLocTemplate* mapLoc = gMapLocTemplates[i].get();
 		mapLoc->SetIndex(i + 1);
@@ -1346,7 +1346,7 @@ static void UpdateMapLocIndexes()
 
 void AddMapLoc(std::unique_ptr<MapLocTemplate> mapLoc)
 {
-	mapLoc->SetIndex(gMapLocTemplates.size() + 1);
+	mapLoc->SetIndex((int)gMapLocTemplates.size() + 1);
 
 	gMapLocTemplates.push_back(std::move(mapLoc));
 }
@@ -1355,6 +1355,17 @@ void DeleteMapLoc(MapLocTemplate* mapLoc)
 {
 	gMapLocTemplates.erase(std::remove_if(gMapLocTemplates.begin(), gMapLocTemplates.end(),
 		[mapLoc](auto& existingMapLoc) { return existingMapLoc.get() == mapLoc; }));
+
+	// Update index labels for remaining locs
+	UpdateMapLocIndexes();
+}
+
+void DeleteSelectedMapLocs()
+{
+	gMapLocTemplates.erase(
+		std::remove_if(gMapLocTemplates.begin(), gMapLocTemplates.end(),
+			[](auto& maploc) { return maploc->IsSelected(); }),
+		gMapLocTemplates.end());
 
 	// Update index labels for remaining locs
 	UpdateMapLocIndexes();
