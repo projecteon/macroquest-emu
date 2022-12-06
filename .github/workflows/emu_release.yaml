@@ -90,6 +90,9 @@ jobs:
       - name: Build MQ2DotNetLoader
         run: msbuild plugins/mq2dotnet/MQ2DotNetLoader/MQ2DotNetLoader.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
+      - name: Build MQ2EasyFind
+        run: msbuild plugins/MQ2EasyFind/MQ2EasyFind.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
       - name: Build MQ2EQBC
         run: msbuild plugins/mq2eqbc/MQ2EQBC.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
