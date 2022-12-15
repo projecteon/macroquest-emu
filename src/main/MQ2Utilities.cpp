@@ -18,6 +18,8 @@
 #include "MQ2Mercenaries.h"
 #include "MQ2Utilities.h"
 
+#include <mq/api/Items.h>
+
 #include <DbgHelp.h>
 #include <PathCch.h>
 
@@ -1355,6 +1357,8 @@ int GetCurrencyIDByName(char* szName)
 	if (!_stricmp(szName, "Warforged Emblem")) return ALTCURRENCY_WARFORGEDEMBLEM;
 	if (!_stricmp(szName, "Scarlet Marks")) return ALTCURRENCY_SCARLETMARKS;
 	if (!_stricmp(szName, "Medals of Conflict")) return ALTCURRENCY_MEDALSOFCONFLICT;
+	if (!_stricmp(szName, "Shaded Specie")) return ALTCURRENCY_SHADEDSPECIE;
+	if (!_stricmp(szName, "Spiritual Medallion")) return ALTCURRENCY_SPIRITUALMEDALLION;
 	return -1;
 }
 
@@ -5237,7 +5241,11 @@ ItemContainer* GetItemContainerByType(ItemContainerInstance type)
 #endif
 #if HAS_DRAGON_HOARD
 	case eItemContainerDragonHoard:
-		return &pLocalPC->DragonHoardItems;
+		return &pDragonHoardWnd ? &pDragonHoardWnd->Items : nullptr;
+#endif
+#if HAS_TRADESKILL_DEPOT
+	case eItemContainerTradeskillDepot:
+		return pTradeskillDepotWnd ? &pTradeskillDepotWnd->Items : nullptr;
 #endif
 
 	case eItemContainerRealEstate:   // todo
@@ -5371,20 +5379,6 @@ ItemClient* FindItemByID(int ItemID)
 }
 
 template <typename T>
-static int CountContainerItems(ItemContainer& container, int fromSlot, int toSlot, T& checkItem)
-{
-	int count = 0;
-	auto predicatedCountVisitor = [&](const ItemPtr& pItem, const ItemIndex& index)
-	{
-		if (checkItem(pItem, index))
-			count += pItem->GetItemCount();
-	};
-
-	container.VisitItems(fromSlot, toSlot, -1, predicatedCountVisitor);
-	return count;
-}
-
-template <typename T>
 int CountInventoryItems(T& checkItem, int minSlot, int maxSlot)
 {
 	PcProfile* pProfile = GetPcProfile();
@@ -5424,8 +5418,7 @@ int CountItems(T&& checkItem)
 int FindInventoryItemCountByName(const char* pName, StringMatchType matchType, int slotBegin, int slotEnd)
 {
 	return CountInventoryItems(
-		[pName, matchType](const ItemPtr& pItem, const ItemIndex&)
-		{ return StringCompare(pItem->GetName(), pName, matchType); },
+		[pName, matchType](const ItemPtr& pItem) { return StringCompare(pItem->GetName(), pName, matchType); },
 		slotBegin, slotEnd);
 }
 
@@ -5438,20 +5431,19 @@ ItemClient* FindInventoryItemByName(const char* pName, StringMatchType matchType
 int FindInventoryItemCountByID(int ItemID, int slotBegin, int slotEnd)
 {
 	return CountInventoryItems(
-		[ItemID](const ItemPtr& pItem, const ItemIndex&)
-		{ return pItem->GetID() == ItemID; },
+		[ItemID](const ItemPtr& pItem) { return pItem->GetID() == ItemID; },
 		slotBegin, slotEnd);
 }
 
 int FindItemCountByName(const char* pName)
 {
-	return CountItems([pName](const ItemPtr& pItem, const ItemIndex&)
+	return CountItems([pName](const ItemPtr& pItem)
 		{ return MaybeExactCompare(pItem->GetName(), pName); });
 }
 
 int FindItemCountByID(int ItemID)
 {
-	return CountItems([ItemID](const ItemPtr& pItem, const ItemIndex&)
+	return CountItems([ItemID](const ItemPtr& pItem)
 		{ return pItem->GetID() == ItemID; });
 }
 
@@ -5505,13 +5497,13 @@ int CountBankItems(T&& checkItem)
 
 int FindBankItemCountByName(const char* pName, bool bExact)
 {
-	return CountBankItems([pName, bExact](const ItemPtr& pItem, const ItemIndex&)
+	return CountBankItems([pName, bExact](const ItemPtr& pItem)
 		{ return ci_equals(pItem->GetItemDefinition()->Name, pName, bExact); });
 }
 
 int FindBankItemCountByID(int ItemID)
 {
-	return CountBankItems([ItemID](const ItemPtr& pItem, const ItemIndex&)
+	return CountBankItems([ItemID](const ItemPtr& pItem)
 		{ return pItem->GetItemDefinition()->ItemNumber == ItemID; });
 }
 
@@ -7127,7 +7119,11 @@ MQColor GetColorForChatColor(uint32_t chatColor)
 
 		// Ensure that alpha is set to fully opaque
 		MQColor color{ MQColor::format_bgr, CDisplay::GetUserDefinedColor(chatColor) };
-		if ((color.ARGB & 0x00ffffff) == 0) {
+		if (gGameState != GAMESTATE_CHARCREATE
+			|| gGameState != GAMESTATE_CHARSELECT
+			|| gGameState != GAMESTATE_INGAME
+			|| (color.ARGB & 0x00ffffff) == 0x00ffffff)
+		{
 			// Hasn't been set yet. Use defaults.
 			color = gUserColors[chatColor];
 		}
