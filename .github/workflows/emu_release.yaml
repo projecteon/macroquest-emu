@@ -61,6 +61,12 @@ jobs:
         
       - name: Add MQ2Twist to submodules
         run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2Twist.git plugins/mq2twist
+        
+      - name: Add MQ2Cast to submodules
+        run: git submodule add -b master -f https://gitlab.com/redguides/plugins/MQ2Cast.git plugins/MQ2Cast
+        
+      - name: Add MQ2Debuffs to submodules
+        run: git submodule add -b master -f https://gitlab.com/redguides/plugins/MQ2Debuffs.git plugins/MQ2Debuffs
       
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1.1
@@ -116,6 +122,12 @@ jobs:
 
       - name: Build MQ2Twist
         run: msbuild plugins/mq2twist/MQ2Twist.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2Cast
+        run: msbuild plugins/mq2twist/MQ2Cast.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2Debuffs
+        run: msbuild plugins/MQ2Debuffs/MQ2Debuffs.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
       - name: Pre-Publish  
         shell: bash
