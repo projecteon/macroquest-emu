@@ -124,7 +124,7 @@ jobs:
         run: msbuild plugins/mq2twist/MQ2Twist.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
       - name: Build MQ2Cast
-        run: msbuild plugins/mq2twist/MQ2Cast.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+        run: msbuild plugins/MQ2Cast/MQ2Cast.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
       - name: Build MQ2Debuffs
         run: msbuild plugins/MQ2Debuffs/MQ2Debuffs.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
