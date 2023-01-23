@@ -1,3 +1,9 @@
+January 23, 2023:
+- emu: Fix crash when declaring a spell var (#688).
+
+January 18, 2023:
+- live: Updated for live patch
+
 January 17, 2023:
 - Add Item.Inspect method to open item display window on a particular item.
 
