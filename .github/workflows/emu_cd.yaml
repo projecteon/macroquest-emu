@@ -8,16 +8,18 @@ on:
 
 jobs:
   call_build:
-    uses: ./.github/workflows/ci_shared.yaml
+    uses: ./.github/workflows/emu_shared.yaml
     with:
       client_target: emu
     secrets: inherit
 
   publish:
-    name: Upload build artefact
-    needs: build
-    uses: actions/upload-artifact@v3
-    with:
-      name: MacroQuest
-      path: ${{ github.workspace }}\build\bin\${{env.config}}
+    name: Publish Macroquest with plugins
+    steps:
+      - name: Upload build artefact
+        needs: build
+        uses: actions/upload-artifact@v3
+        with:
+          name: MacroQuest
+          path: ${{ github.workspace }}\build\bin\${{env.config}}
         
