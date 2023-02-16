@@ -15,6 +15,7 @@ jobs:
 
   publish:
     name: Publish Macroquest with plugins
+    runs-on: [windows-2022]
     needs: call_build
     steps:
       - name: Upload build artefact

@@ -13,7 +13,6 @@ env:
 
 jobs:
   build_env:
-    if: github.repository == 'macroquest/macroquest'
     runs-on: [windows-2022]
     name: Setup build environment
     steps:
