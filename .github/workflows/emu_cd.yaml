@@ -15,9 +15,9 @@ jobs:
 
   publish:
     name: Publish Macroquest with plugins
+    needs: build
     steps:
       - name: Upload build artefact
-        needs: build
         uses: actions/upload-artifact@v3
         with:
           name: MacroQuest
