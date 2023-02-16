@@ -11,16 +11,7 @@ jobs:
     uses: ./.github/workflows/emu_shared.yaml
     with:
       client_target: emu
+      deploy_target: test
     secrets: inherit
 
-  publish:
-    name: Publish Macroquest with plugins
-    runs-on: [windows-2022]
-    needs: call_build
-    steps:
-      - name: Upload build artefact
-        uses: actions/upload-artifact@v3
-        with:
-          name: MacroQuest
-          path: ${{ github.workspace }}\build\bin\${{env.config}}
         

@@ -6,6 +6,9 @@ on:
       client_target:
         required: true
         type: string
+      deploy_target:
+        required: true
+        type: string
 
 env:
   config: Release
@@ -79,11 +82,6 @@ jobs:
       - name: Update submoules
         run: git submodule update --init --recursive
 
-  build:
-    name: Build Macroquest with plugins
-    runs-on: [windows-2022]
-    needs: fetch_code
-    steps:
       - name: Setup msbuild
         uses: microsoft/setup-msbuild@v1.1
 
@@ -165,4 +163,26 @@ jobs:
 
       - name: Build MQ2Debuffs
         run: msbuild plugins/MQ2Debuffs/MQ2Debuffs.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Publish Macroquest Test
+        if: input.deploy_target == 'test'
+        uses: actions/upload-artifact@v3
+        with:
+          name: MacroQuest
+          path: ${{ github.workspace }}\build\bin\${{env.config}}
+
+      - name: Pre-Publish  
+        if: input.deploy_target == 'release'
+        shell: bash
+        run: |
+            # Pack files
+            7z a -tzip MacroQuest_Emu.zip $publishDir/*
+
+      - name: Publish
+        if: input.deploy_target == 'release'
+        uses: softprops/action-gh-release@v1
+        with:
+            files: "MacroQuest_Emu.zip"
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
