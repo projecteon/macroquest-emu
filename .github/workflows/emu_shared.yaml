@@ -36,6 +36,7 @@ jobs:
 
   fetch_code:
     name: Fetch sources
+    runs-on: [windows-2022]
     needs: build_env
     steps:
       - name: Check out code
@@ -103,6 +104,7 @@ jobs:
 
   build:
     name: Build Macroquest with plugins
+    runs-on: [windows-2022]
     needs: fetch_code
     steps:
       - name: Build Macroquest
