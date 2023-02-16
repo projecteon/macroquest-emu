@@ -16,6 +16,7 @@ jobs:
     if: github.repository == 'macroquest/macroquest'
     runs-on: [windows-2022]
     name: Setup build environment
+    steps:
       - name: Setup msbuild
         uses: microsoft/setup-msbuild@v1.1
 
@@ -37,6 +38,7 @@ jobs:
   fetch_code:
     name: Fetch sources
     needs: build_env
+    steps:
       - name: Check out code
         uses: actions/checkout@v3
         with:

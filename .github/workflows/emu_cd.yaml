@@ -1,4 +1,4 @@
-name: CD MacroQuest [EMU] 
+name: CD MacroQuest [EMU]   
 
 on:
   push:
@@ -15,6 +15,7 @@ jobs:
 
   publish:
     name: Upload build artefact
+    needs: build
     uses: actions/upload-artifact@v3
     with:
       name: MacroQuest
