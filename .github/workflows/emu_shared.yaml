@@ -1,12 +1,19 @@
 name: Fetch & Build MacroQuest [EMU] 
 
+on:
+  workflow_call:
+    inputs:
+      client_target:
+        required: true
+        type: string
+
 env:
   config: Release
-  platform: Win32
-  vcpkg-version: 142
+  platform: "${{ inputs.client_target == 'emu' && 'Win32' || 'x64' }}"
 
 jobs:
   build_env:
+    if: github.repository == 'macroquest/macroquest'
     runs-on: [windows-2022]
     name: Setup build environment
       - name: Setup msbuild
@@ -23,7 +30,7 @@ jobs:
             contrib/vcpkg/packages
             contrib/vcpkg/vcpkg.exe
             contrib/vcpkg/vcpkg_mq_last_bootstrap*.txt
-          key: ${{ runner.os }}-vcpkg-${{ env.platform }}-${{ env.vcpkg-version }}
+          key: ${{ runner.os }}-vcpkg-${{ env.platform }}-${{ github.run_id }}
           restore-keys: |
             ${{ runner.os }}-vcpkg-${{ env.platform }}-
 
