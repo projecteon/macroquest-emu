@@ -12,32 +12,9 @@ env:
   platform: "${{ inputs.client_target == 'emu' && 'Win32' || 'x64' }}"
 
 jobs:
-  build_env:
-    runs-on: [windows-2022]
-    name: Setup build environment
-    steps:
-      - name: Setup msbuild
-        uses: microsoft/setup-msbuild@v1.1
-
-      - name: vcpkg Cache
-        id: cache-vcpkg
-        uses: actions/cache@v3
-        with:
-          path: |
-            contrib/vcpkg/buildtrees
-            contrib/vcpkg/downloads
-            contrib/vcpkg/installed
-            contrib/vcpkg/packages
-            contrib/vcpkg/vcpkg.exe
-            contrib/vcpkg/vcpkg_mq_last_bootstrap*.txt
-          key: ${{ runner.os }}-vcpkg-${{ env.platform }}-${{ github.run_id }}
-          restore-keys: |
-            ${{ runner.os }}-vcpkg-${{ env.platform }}-
-
   fetch_code:
     name: Fetch sources
     runs-on: [windows-2022]
-    needs: build_env
     steps:
       - name: Check out code
         uses: actions/checkout@v3
@@ -107,6 +84,24 @@ jobs:
     runs-on: [windows-2022]
     needs: fetch_code
     steps:
+      - name: Setup msbuild
+        uses: microsoft/setup-msbuild@v1.1
+
+      - name: vcpkg Cache
+        id: cache-vcpkg
+        uses: actions/cache@v3
+        with:
+          path: |
+            contrib/vcpkg/buildtrees
+            contrib/vcpkg/downloads
+            contrib/vcpkg/installed
+            contrib/vcpkg/packages
+            contrib/vcpkg/vcpkg.exe
+            contrib/vcpkg/vcpkg_mq_last_bootstrap*.txt
+          key: ${{ runner.os }}-vcpkg-${{ env.platform }}-${{ github.run_id }}
+          restore-keys: |
+            ${{ runner.os }}-vcpkg-${{ env.platform }}-
+
       - name: Build Macroquest
         shell: pwsh
         run: msbuild src/MacroQuest.sln /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
