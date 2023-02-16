@@ -1,0 +1,20 @@
+name: CD MacroQuest [EMU] 
+
+on:
+  push:
+    branches: [ "emu" ]
+  pull_request:
+    branches: [ "emu" ]
+
+jobs:
+  call_build:
+    uses: ./.github/workflows/ci_shared.yaml
+    secrets: inherit
+
+  publish:
+    name: Upload build artefact
+    uses: actions/upload-artifact@v3
+    with:
+      name: MacroQuest
+      path: ${{ github.workspace }}\build\bin\${{env.config}}
+        
