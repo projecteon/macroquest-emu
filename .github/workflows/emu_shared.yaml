@@ -6,9 +6,6 @@ on:
       client_target:
         required: true
         type: string
-      deploy_target:
-        required: true
-        type: string
 
 env:
   config: Release
@@ -189,26 +186,21 @@ jobs:
         with:
           path: ${{ github.workspace }}\build\bin\${{env.config}}
           key: ${{ runner.os }}-artifacts-${{ env.platform }}
-
-      - name: Publish Macroquest Test
-        if: inputs.deploy_target == 'test'
-        uses: actions/upload-artifact@v3
-        with:
-          name: MacroQuest
-          path: ${{ github.workspace }}\build\bin\${{env.config}}
-
-      - name: Pre-Publish  
-        if: inputs.deploy_target == 'release'
-        shell: bash
+    
+      - name: Cleanup source cache
         run: |
-            # Pack files
-            7z a -tzip MacroQuest_Emu.zip $publishDir/*
+          gh extension install actions/gh-actions-cache
+          
+          REPO=${{ github.repository }}
+          BRANCH=refs/pull/${{ github.event.pull_request.number }}/merge
 
-      - name: Publish
-        if: inputs.deploy_target == 'release'
-        uses: softprops/action-gh-release@v1
-        with:
-            files: "MacroQuest_Emu.zip"
+          cacheKey=${{ runner.os }}-source-${{ env.platform }}
+
+          ## Setting this to not fail the workflow while deleting cache keys. 
+          set +e
+          echo "Deleting source cache..."
+          gh actions-cache delete $cacheKey -R $REPO -B $BRANCH --confirm
+          echo "Done"
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

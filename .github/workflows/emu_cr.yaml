@@ -1,10 +1,8 @@
 name: CD MacroQuest [EMU]   
 
 on:
-  push:
-    branches: [ "emu" ]
-  pull_request:
-    branches: [ "emu" ]
+  release:
+    types: [published]
 
 jobs:
   s1:
@@ -25,11 +23,18 @@ jobs:
           path: ${{ github.workspace }}
           key: ${{ runner.os }}-artifacts-${{ env.platform }}
 
-      - name: Upload build artefact
-        uses: actions/upload-artifact@v3
+      - name: Pre-Publish  
+        shell: bash
+        run: |
+            # Pack files
+            7z a -tzip MacroQuest_Emu.zip $publishDir/*
+
+      - name: Publish
+        uses: softprops/action-gh-release@v1
         with:
-          name: MacroQuest
-          path: ${{ github.workspace }}\build\bin\${{env.config}}
+            files: "MacroQuest_Emu.zip"
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
       - name: Cleanup artifacts cache
         run: |
