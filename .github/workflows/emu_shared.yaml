@@ -188,6 +188,7 @@ jobs:
           key: ${{ runner.os }}-artifacts-${{ env.platform }}
     
       - name: Cleanup source cache
+        shell: bash
         run: |
           gh extension install actions/gh-actions-cache
           

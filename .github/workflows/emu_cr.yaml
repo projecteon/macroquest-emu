@@ -37,6 +37,7 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     
       - name: Cleanup artifacts cache
+        shell: bash
         run: |
           gh extension install actions/gh-actions-cache
           

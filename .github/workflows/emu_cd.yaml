@@ -32,6 +32,7 @@ jobs:
           path: ${{ github.workspace }}\build\bin\${{env.config}}
     
       - name: Cleanup artifacts cache
+        shell: bash
         run: |
           gh extension install actions/gh-actions-cache
           
