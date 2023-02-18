@@ -15,7 +15,7 @@ env:
   platform: "${{ inputs.client_target == 'emu' && 'Win32' || 'x64' }}"
 
 jobs:
-  fetch_code:
+  fetch:
     name: Fetch Macroquest with Plugins
     runs-on: [windows-2022]
     steps:
@@ -94,6 +94,7 @@ jobs:
   build:
     name: Build Macroquest
     runs-on: [windows-2022]
+    needs: fetch
     steps:
       - name: Restore cache of source
         uses: actions/cache/restore@v3
