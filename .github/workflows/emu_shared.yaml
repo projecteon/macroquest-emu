@@ -86,7 +86,7 @@ jobs:
         uses: actions/cache/save@v3
         id: cache-source
         with:
-          path: ${{ github.workspace }}
+          path: "./"
           key: ${{ runner.os }}-source-${{ env.platform }}
 
   build:
