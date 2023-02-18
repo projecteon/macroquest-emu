@@ -87,9 +87,7 @@ jobs:
         id: cache-source
         with:
           path: ${{ github.workspace }}
-          key: ${{ runner.os }}-source-${{ env.platform }}-${{ github.run_id }}
-          restore-keys: |
-            ${{ runner.os }}-source-${{ env.platform }}-
+          key: ${{ runner.os }}-source-${{ env.platform }}
 
   build:
     name: Build Macroquest
@@ -100,7 +98,7 @@ jobs:
         uses: actions/cache/restore@v3
         id: restore-cache-source
         with:
-          key: ${{ runner.os }}-source-${{ env.platform }}-
+          key: ${{ runner.os }}-source-${{ env.platform }}
       
       - name: Setup msbuild
         uses: microsoft/setup-msbuild@v1.1
@@ -189,9 +187,7 @@ jobs:
         id: cache-build
         with:
           path: ${{ github.workspace }}\build\bin\${{env.config}}
-          key: ${{ runner.os }}-artifacts-${{ env.platform }}-${{ github.run_id }}
-          restore-keys: |
-            ${{ runner.os }}-artifacts-${{ env.platform }}-
+          key: ${{ runner.os }}-artifacts-${{ env.platform }}
 
       - name: Publish Macroquest Test
         if: inputs.deploy_target == 'test'
