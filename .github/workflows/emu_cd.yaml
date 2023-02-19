@@ -18,8 +18,8 @@ jobs:
     runs-on: [windows-2022]
     needs: s1
     env:
-      config: ${{s1.build.outputs.config}}
-      platform: ${{s1.build.outputs.platform}}
+      config: ${{needs.s1.build.outputs.config}}
+      platform: ${{needs.s1.build.outputs.platform}}
     steps:
       - name: Restore cache of build artifacts
         uses: actions/cache/restore@v3
