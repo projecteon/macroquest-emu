@@ -90,6 +90,9 @@ jobs:
     name: Build Macroquest
     runs-on: [windows-2022]
     needs: fetch
+    outputs:
+      config: ${{ env.config }}
+      platform: ${{ env.platform }}
     steps:
       - name: Restore cache of source
         uses: actions/cache/restore@v3
