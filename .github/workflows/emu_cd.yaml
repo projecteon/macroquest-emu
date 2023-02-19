@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ "emu" ]
 
+env:
+  config: Release
+  platform: Win32
+  branch: emu
+
 jobs:
   s1:
     uses: ./.github/workflows/emu_shared.yaml
@@ -17,9 +22,6 @@ jobs:
     name: Publish Macroquest with plugins
     runs-on: [windows-2022]
     needs: s1
-    env:
-      config: ${{needs.s1.build.outputs.config}}
-      platform: ${{needs.s1.build.outputs.platform}}
     steps:
       - name: Restore cache of build artifacts
         uses: actions/cache/restore@v3

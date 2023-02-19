@@ -10,6 +10,7 @@ on:
 env:
   config: Release
   platform: "${{ inputs.client_target == 'emu' && 'Win32' || 'x64' }}"
+  branch: "${{ inputs.client_target == 'emu' && 'emu' || 'master' }}"
 
 jobs:
   fetch:
@@ -19,7 +20,7 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
         with:
-          ref: emu
+          ref: ${{ env.branch }}
           submodules: recursive
       
       - name: Add MQ2AdvPath to submodules
@@ -196,7 +197,7 @@ jobs:
           gh extension install actions/gh-actions-cache
           
           REPO=${{ github.repository }}
-          BRANCH=refs/pull/${{ github.event.pull_request.number }}/merge
+          BRANCH=${{ env.branch }}
 
           cacheKey=${{ runner.os }}-source-${{ env.platform }}
 
