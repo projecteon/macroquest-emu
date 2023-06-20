@@ -50,9 +50,6 @@ jobs:
       - name: Add MQ2Exchange to submodules
         run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2Exchange.git plugins/mq2exchange
          
-      - name: Add MQ2IniExt to submodules
-        run: git submodule add -f https://github.com/projecteon/MQ2IniExt.git plugins/mq2iniext
-        
       - name: Add MQ2LinkDB to submodules
         run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2LinkDB.git plugins/mq2linkdb
         
@@ -156,9 +153,6 @@ jobs:
 
       - name: Build MQ2Exchange
         run: msbuild plugins/mq2exchange/MQ2Exchange.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
-
-      - name: Build MQ2IniExt
-        run: msbuild plugins/mq2iniext/MQ2IniExt.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
       - name: Build MQ2LinkDB
         run: msbuild plugins/mq2linkdb/MQ2LinkDB.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
