@@ -70,6 +70,9 @@ jobs:
         
       - name: Add MQ2Debuffs to submodules
         run: git submodule add -b master -f https://gitlab.com/redguides/plugins/MQ2Debuffs.git plugins/MQ2Debuffs
+
+      - name: Update submoules
+        run: git submodule update --init --recursive
       
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v1.1
