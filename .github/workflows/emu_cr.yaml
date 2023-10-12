@@ -50,6 +50,9 @@ jobs:
       - name: Add MQ2LinkDB to submodules
         run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2LinkDB.git plugins/mq2linkdb
         
+      - name: Add MQ2Medley to submodules
+        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2Medley.git plugins/mq2medley
+        
       - name: Add MQ2MoveUtils to submodules
         run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2MoveUtils.git plugins/mq2moveutils
          
@@ -116,6 +119,9 @@ jobs:
 
       - name: Build MQ2LinkDB
         run: msbuild plugins/mq2linkdb/MQ2LinkDB.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQ2Medley
+        run: msbuild plugins/mq2medley/MQ2Medley.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
       - name: Build MQ2MoveUtils
         run: msbuild plugins/mq2moveutils/MQ2MoveUtils.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
