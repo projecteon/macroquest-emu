@@ -60,7 +60,7 @@ jobs:
         run: git submodule add -f https://github.com/brainiac/MQ2Nav.git plugins/mq2nav
        
       - name: Add MQ2NetBots to submodules
-        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2NetBots.git plugins/mq2netbots
+        run: git submodule add -f https://gitlab.com/projecteon/MQ2NetBots.git plugins/mq2netbots
       
       - name: Add MQ2SpawnMaster to submodules
         run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2SpawnMaster.git plugins/mq2spawnmaster
