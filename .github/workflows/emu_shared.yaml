@@ -157,8 +157,8 @@ jobs:
       - name: Build MQ2Exchange
         run: msbuild plugins/mq2exchange/MQ2Exchange.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
-      - name: Build MQ2LinkDB
-        run: msbuild plugins/mq2linkdb/MQ2LinkDB.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+    #   - name: Build MQ2LinkDB
+    #     run: msbuild plugins/mq2linkdb/MQ2LinkDB.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
       - name: Build MQ2Medley
         run: msbuild plugins/mq2medley/MQ2Medley.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
