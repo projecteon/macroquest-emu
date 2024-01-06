@@ -1,0 +1,57 @@
+name: CD MacroQuest [EMU]   
+
+on:
+  push:
+    branches: [ "emu" ]
+  pull_request:
+    branches: [ "emu" ]
+
+env:
+  config: Release
+  platform: Win32
+  branch: emu
+
+jobs:
+  s1:
+    uses: ./.github/workflows/emu_shared.yaml
+    with:
+      client_target: emu
+    secrets: inherit
+
+  publish:
+    name: Publish Macroquest with plugins
+    runs-on: [windows-2022]
+    needs: s1
+    steps:
+      - name: Restore cache of build artifacts
+        uses: actions/cache/restore@v3
+        id: restore-cache-build
+        with:
+          path: ${{ github.workspace }}\build\bin\${{env.config}}
+          key: ${{ runner.os }}-artifacts-${{ env.platform }}
+
+      - name: Upload build artefact
+        uses: actions/upload-artifact@v3
+        with:
+          name: MacroQuest
+          path: ${{ github.workspace }}\build\bin\${{env.config}}
+    
+      - name: Cleanup artifacts cache
+        shell: bash
+        run: |
+          gh extension install actions/gh-actions-cache
+          
+          REPO=${{ github.repository }}
+          BRANCH=${{ env.branch }}
+
+          cacheKey=${{ runner.os }}-artifacts-${{ env.platform }}
+
+          ## Setting this to not fail the workflow while deleting cache keys. 
+          set +e
+          echo "Deleting source cache..."
+          gh actions-cache delete $cacheKey -R $REPO -B $BRANCH --confirm
+          echo "Done"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        
