@@ -86,8 +86,8 @@ jobs:
       - name: Update vcpkg
         run: |
             cd contrib\vcpkg
-            pwd
-            dir
+            Get-Location | Foreach-Object { Write-Output $_.Path }
+            Get-ChildItem | Foreach-Object { Write-Output $_ }
             git checkout macroquest
             git pull
             .\boostrap-vcpkg.bat
