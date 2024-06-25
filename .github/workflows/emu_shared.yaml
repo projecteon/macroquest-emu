@@ -104,11 +104,13 @@ jobs:
         with:
           path: ${{ github.workspace }}
           key: ${{ runner.os }}-source-${{ env.platform }}
+
+      - name: Build Macroquest
+        shell: pwsh
+        run: msbuild.exe -version
       
       - name: Setup msbuild
         uses: microsoft/setup-msbuild@v2
-        with:
-            vs-version: '[17.9,17.10)'
 
       - name: vcpkg Cache
         id: cache-vcpkg

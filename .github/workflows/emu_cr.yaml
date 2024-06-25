@@ -82,8 +82,6 @@ jobs:
       
       - name: setup-msbuild
         uses: microsoft/setup-msbuild@v2
-        with:
-            vs-version: '[17.9,17.10)'
         
       - name: Build Macroquest
         shell: pwsh
