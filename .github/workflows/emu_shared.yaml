@@ -83,6 +83,14 @@ jobs:
       - name: Update submoules
         run: git submodule update --init --recursive
 
+      - name: Update vcpkg
+          run: |
+            cd contrib\vcpkg
+            git checkout macroquest
+            git pull
+            .\boostrap-vcpkg.bat
+          shell: pwsh
+
       - name: Cache source for next job
         uses: actions/cache/save@v4
         id: cache-source
