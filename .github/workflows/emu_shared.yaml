@@ -107,6 +107,8 @@ jobs:
       
       - name: Setup msbuild
         uses: microsoft/setup-msbuild@v2
+        with:
+            vs-version: '[17.9,17.10)'
 
       - name: vcpkg Cache
         id: cache-vcpkg
