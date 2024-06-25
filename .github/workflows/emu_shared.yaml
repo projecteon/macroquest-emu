@@ -106,7 +106,7 @@ jobs:
           key: ${{ runner.os }}-source-${{ env.platform }}
       
       - name: Setup msbuild
-        uses: microsoft/setup-msbuild@v1.1
+        uses: microsoft/setup-msbuild@v2
 
       - name: vcpkg Cache
         id: cache-vcpkg
