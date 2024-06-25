@@ -86,6 +86,8 @@ jobs:
       - name: Update vcpkg
         run: |
             cd contrib\vcpkg
+            pwd
+            dir
             git checkout macroquest
             git pull
             .\boostrap-vcpkg.bat
