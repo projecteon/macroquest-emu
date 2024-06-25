@@ -83,17 +83,6 @@ jobs:
       - name: Update submoules
         run: git submodule update --init --recursive
 
-      - name: Update vcpkg
-        run: |
-            cd contrib\vcpkg
-            #Get-Location | Foreach-Object { Write-Output $_.Path }
-            #Get-ChildItem | Foreach-Object { Write-Output $_ }
-            git checkout macroquest
-            git pull
-            Start-Process -FilePath ".\bootstrap-vcpkg.bat" -Wait
-            cd ..\..
-        shell: pwsh
-
       - name: Cache source for next job
         uses: actions/cache/save@v4
         id: cache-source
