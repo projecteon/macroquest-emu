@@ -1,6 +1,7 @@
 name: Continous Release MacroQuest [EMU]   
 
-release:
+on:
+  release:
     types: [published]
 
 env:
