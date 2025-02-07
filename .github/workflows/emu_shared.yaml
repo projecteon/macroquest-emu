@@ -26,6 +26,9 @@ jobs:
       - name: Add MQActorFollow to submodules
         run: git submodule add -f https://github.com/peonMQ/MQActorFollow.git plugins/MQActorFollow
 
+      - name: Add MQRespawn to submodules
+        run: git submodule add -f https://github.com/peonMQ/MQRespawn.git plugins/MQRespawn
+
       - name: Add MQ2AdvPath to submodules
         run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2AdvPath.git plugins/mq2advpath
 
@@ -132,6 +135,9 @@ jobs:
 
       - name: Build MQActorFollow
         run: msbuild plugins/MQActorFollow/MQActorFollow.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
+      - name: Build MQRespawn
+        run: msbuild plugins/MQRespawn/MQRespawn.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
       - name: Build MQ2AdvPath
         run: msbuild plugins/mq2advpath/MQ2AdvPath.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
