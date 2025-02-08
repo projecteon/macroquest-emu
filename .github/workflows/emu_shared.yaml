@@ -30,13 +30,13 @@ jobs:
         run: git submodule add -f https://github.com/peonMQ/MQRespawn.git plugins/MQRespawn
 
       - name: Add MQ2AdvPath to submodules
-        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2AdvPath.git plugins/mq2advpath
+        run: git submodule add -f https://github.com/RedGuides/MQ2AdvPath.git plugins/mq2advpath
 
       - name: Add MQ2AutoAccept to submodules
-        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2AutoAccept.git plugins/mq2autoaccept
+        run: git submodule add -f https://github.com/RedGuides/MQ2AutoAccept.git plugins/mq2autoaccept
         
       - name: Add MQ2BardSwap to submodules
-        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2BardSwap.git plugins/mq2bardswap
+        run: git submodule add -f https://github.com/RedGuides/MQ2BardSwap.git plugins/mq2bardswap
       
       - name: Add MQ2ConstantAffinity to submodules
         run: git submodule add -b main -f https://github.com/martinlindhe/MQ2ConstantAffinity.git plugins/mq2constantaffinity
@@ -51,37 +51,37 @@ jobs:
         run: git submodule add -b master -f https://github.com/brainiac/MQ2EasyFind.git plugins/MQ2EasyFind
       
       - name: Add MQ2EQBC to submodules
-        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2EQBC.git plugins/mq2eqbc
+        run: git submodule add -f https://github.com/RedGuides/MQ2EQBC.git plugins/mq2eqbc
         
       - name: Add MQ2Exchange to submodules
-        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2Exchange.git plugins/mq2exchange
+        run: git submodule add -f https://github.com/RedGuides/MQ2Exchange.git plugins/mq2exchange
          
       - name: Add MQ2LinkDB to submodules
-        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2LinkDB.git plugins/mq2linkdb
+        run: git submodule add -f https://github.com/RedGuides/MQ2LinkDB.git plugins/mq2linkdb
         
       - name: Add MQ2Medley to submodules
-        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2Medley.git plugins/mq2medley
+        run: git submodule add -f https://github.com/RedGuides/MQ2Medley.git plugins/mq2medley
         
       - name: Add MQ2MoveUtils to submodules
-        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2MoveUtils.git plugins/mq2moveutils
+        run: git submodule add -f https://github.com/RedGuides/MQ2MoveUtils.git plugins/mq2moveutils
          
       - name: Add MQNav to submodules
         run: git submodule add -f https://github.com/brainiac/MQ2Nav.git plugins/mq2nav
        
       - name: Add MQ2NetBots to submodules
-        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2NetBots.git plugins/mq2netbots
+        run: git submodule add -f https://github.com/RedGuides/MQ2NetBots.git plugins/mq2netbots
       
       - name: Add MQ2SpawnMaster to submodules
-        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2SpawnMaster.git plugins/mq2spawnmaster
+        run: git submodule add -f https://github.com/RedGuides/MQ2SpawnMaster.git plugins/mq2spawnmaster
         
       - name: Add MQ2Twist to submodules
-        run: git submodule add -f https://gitlab.com/redguides/plugins/MQ2Twist.git plugins/mq2twist
+        run: git submodule add -f https://github.com/RedGuides/MQ2Twist.git plugins/mq2twist
         
       - name: Add MQ2Cast to submodules
-        run: git submodule add -b master -f https://gitlab.com/redguides/plugins/MQ2Cast.git plugins/MQ2Cast
+        run: git submodule add -b master -f https://github.com/RedGuides/MQ2Cast.git plugins/MQ2Cast
         
       - name: Add MQ2Debuffs to submodules
-        run: git submodule add -b master -f https://gitlab.com/redguides/plugins/MQ2Debuffs.git plugins/MQ2Debuffs
+        run: git submodule add -b master -f https://github.com/RedGuides/MQ2Debuffs.git plugins/MQ2Debuffs
 
       - name: Update submoules
         run: git submodule update --init --recursive
