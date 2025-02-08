@@ -142,8 +142,8 @@ jobs:
       - name: Build MQ2AdvPath
         run: msbuild plugins/mq2advpath/MQ2AdvPath.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
-      - name: Build MQ2AutoAccept
-        run: msbuild plugins/mq2autoaccept/MQ2AutoAccept.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+    #   - name: Build MQ2AutoAccept
+    #     run: msbuild plugins/mq2autoaccept/MQ2AutoAccept.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
       - name: Build MQ2BardSwap
         run: msbuild plugins/mq2bardswap/MQ2BardSwap.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
