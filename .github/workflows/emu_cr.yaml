@@ -23,7 +23,7 @@ jobs:
     needs: s1
     steps:
       - name: Restore cache of build artifacts
-        uses: actions/cache/restore@v3
+        uses: actions/cache@v4
         id: restore-cache-build
         with:
           path: ${{ github.workspace }}\build\bin\${{env.config}}
