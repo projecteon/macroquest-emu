@@ -8,7 +8,7 @@ env:
   config: Release
   platform: Win32
   branch: emu
-  publishDir: ./build/bin/Release/
+  publishDir: ./build/bin/release
 
 jobs:
   s1:
