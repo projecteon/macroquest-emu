@@ -1,4 +1,4 @@
-name: CD MacroQuest [EMU]   
+name: Continous Deploy MacroQuest [EMU]   
 
 on:
   push:
