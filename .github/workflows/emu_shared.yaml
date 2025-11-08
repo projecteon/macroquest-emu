@@ -26,6 +26,9 @@ jobs:
       - name: Add MQActorFollow to submodules
         run: git submodule add -f https://github.com/peonMQ/MQActorFollow.git plugins/MQActorFollow
 
+      - name: Add MQRemote to submodules
+        run: git submodule add -f https://github.com/peonMQ/MQRemote.git plugins/MQRemote
+
       - name: Add MQRespawn to submodules
         run: git submodule add -f https://github.com/peonMQ/MQRespawn.git plugins/MQRespawn
 
