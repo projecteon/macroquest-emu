@@ -1,3 +1,98 @@
+## Update 1/4/2026
+
+### Fixes
+
+ - Fix lua drag & drop to properly support the following primitive types:
+   - boolean, number, string, ImVec4, and list of numbers. (#955)
+ - Fix ContainerManager structure causing crashes when accessing world container inventory
+ - Fix UI not being reloaded after shrouding. (#949)
+ - Fix /target clearing target buffs unnecessarily. (#937)
+ - Add missing damage type strings for Prismatic, Chromatic, Corruption and Physical. (#953)
+
+### Features
+
+ - Add `Format` member to `time` datatype. This allows formatting time using strftime format strings.
+   i.e. mq.TLO.Time.Format("%Y/%m/%d %H:%M:%S") will return "2026/01/04 18:30:30".
+   For more info, see: https://en.cppreference.com/w/cpp/chrono/c/strftime.html
+
+
+### Lua Improvements
+
+ - Drag and Drop improvements for lua:
+   - Add support for `_COL3F` and `_COL4F` payloads used by color widgets. These
+     will return a list of 3 or 4 numbers, which can be converted into an ImVec4
+     using `ImColor(data)`.
+   - LuaImGuiDragDropPayload can now access the payload's type and the raw data as a
+     string using `DataType` and `RawData`, respectively.
+   - Note: It continues to be true that a payload will only be valid during the
+     frame in which is is received, and should not be stored.
+ - Add `ImGuiItemFlags` enumeration, along with `PushItemFlags` and `PopItemFlags`.
+ - Add `ImColor` function to convert various parameters into an ImVec4 representing a color.
+ - Extended examples/imgui_demo to include some of the drag and drop examples with some
+   modifications to exercise more of the drag and drop code.
+
+
+## Update 12/3/2025
+
+- Updated Zones.ini to include new zones from latest expansion patch.
+
+
+## Live Patch Update 12/2/2025
+
+Update for live patch
+
+
+## Test Patch Update 11/24/2025
+
+Update for latest test patch
+
+## Update 11/17/2025
+
+Updated for live hotfix.
+
+## Update 11/14/2025
+
+- loader: Fix SendSetForegroundWindow - should help resolve some issues with focus swapping
+
+## Update 11/13/2025
+
+Updated for live hotfix.
+
+- Fix achievements not reading properly
+- Fix Item.CashLoot not returning the proper value
+- Fix FindItemWnd additional columns overlapping existing columns
+
+## Live Patch Update 11/12/2025
+
+- Includes all changes from previous test patches.
+
+Additional fixes:
+- Fix crash when inspecting cash loot bag.
+
+
+## Test Patch Update 11/6/2025
+
+- Added new EquipmentItem TLO that provides access to the new equipment keyring. Usage is
+  the same as other keyrings.
+- Locked Items are added to the client, but access through MQ is not available yet.
+- Added CashLoot member to Item type
+
+
+## Previous Updates
+
+November 11, 2025:
+- bzsrch: handle case of bad data being sent from server causing a crash
+
+November 1, 2025:
+- test: Update for test patch
+
+October 27, 2025:
+- Added network capability for actors
+  Add any peers to a new \[NetworkPeers\] section in your ini in the format \<ip\>=\<port\>
+  Setting port to 0 assumes that the remote peer uses the same port as the local peer (default to 7781)
+  Can change the NetworkPeerPort entry in the \[MacroQuest\] section of the ini to change the connected port
+  Everything else should be completely transparent and function like the current actor system
+
 October 15, 2025:
 - live: Update for live patch
 

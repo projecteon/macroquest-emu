@@ -234,6 +234,7 @@ MQLIB_API int GetFamiliarCount();
 MQLIB_API int GetHeroForgeCount();
 MQLIB_API int GetTeleportationItemCount();
 MQLIB_API int GetActivatedItemCount();
+MQLIB_API int GetEquipmentItemCount();
 
 MQLIB_API bool IsActiveAA(const char* pSpellName);
 MQLIB_API CXWnd* GetAdvLootPersonalListItem(DWORD ListIndex, DWORD type);
@@ -344,6 +345,7 @@ MQLIB_API bool LoadCfgFile(const char* Filename, bool Delayed = FromPlugin);
 
 /* MQ2GROUNDSPAWNS */
 
+using ObservedSpawnPtr = MQEQObjectPtr<PlayerClient>;
 using EQGroundItemPtr = MQEQObjectPtr<EQGroundItem>;
 using EQPlacedItemPtr = MQEQObjectPtr<EQPlacedItem>;
 using AnyMQGroundItem = std::variant<std::monostate, EQGroundItemPtr, EQPlacedItemPtr>;
@@ -354,9 +356,6 @@ enum class MQGroundSpawnType
 	Ground,
 	Placed
 };
-
-inline auto EQObjectID(EQGroundItem* Object) { return Object->DropID; }
-inline auto EQObjectID(EQPlacedItem* Object) { return Object->RealEstateItemID; }
 
 struct MQGroundSpawn
 {
@@ -438,9 +437,6 @@ MQLIB_OBJECT bool HasCurrentGroundSpawn();
 MQLIB_OBJECT CXStr GetFriendlyNameForGroundItem(const EQGroundItem* pItem);
 MQLIB_OBJECT CXStr GetFriendlyNameForPlacedItem(const EQPlacedItem* pItem);
 MQLIB_API char* GetFriendlyNameForGroundItem(PGROUNDITEM pItem, char* szName, size_t BufferSize);
-
-inline auto EQObjectID(PlayerClient* pSpawn) { return pSpawn->SpawnID; }
-using ObservedSpawnPtr = MQEQObjectPtr<PlayerClient>;
 
 MQLIB_API void AddObservedEQObject(const std::shared_ptr<MQTransient>& Object);
 MQLIB_API void InvalidateObservedEQObject(void* Object);

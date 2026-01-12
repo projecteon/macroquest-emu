@@ -57,8 +57,20 @@ void SetRequestFocusCallback(const RequestFocusCallback& requestFocus)
 
 //-----------------------------------------------------------------------------
 
+static uint16_t GetConfiguredPort()
+{
+	if (s_iniLocation)
+	 return static_cast<uint16_t>(mq::GetPrivateProfileInt(
+		 "MacroQuest",
+		 "NetworkPeerPort",
+		 mq::DEFAULT_NETWORK_PEER_PORT,
+		 *s_iniLocation));
+
+	return mq::DEFAULT_NETWORK_PEER_PORT;
+}
+
 LauncherPostOffice::LauncherPostOffice()
-	: ServerPostOffice("launcher", mq::MQ_PIPE_SERVER_PATH)
+	: ServerPostOffice("launcher", mq::MQ_PIPE_SERVER_PATH, GetConfiguredPort())
 {
 	InitializePostOfficeImGui();
 }
@@ -203,6 +215,8 @@ bool SendSetForegroundWindow(HWND hWnd, uint32_t processID)
 
 			s_postOffice->SendPipeMessage(pipeConnection->GetConnectionId(),
 				mq::MQMessageId::MSG_MAIN_FOCUS_ACTIVATE_WND, &message, sizeof(message));
+
+			return true;
 		}
 	}
 	

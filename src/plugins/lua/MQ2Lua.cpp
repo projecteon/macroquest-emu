@@ -1022,16 +1022,16 @@ static void LuaPSCommand(const std::vector<std::string>& filters = {})
 		return std::find(filters.begin(), filters.end(), status) != filters.end();
 	};
 
-	WriteChatStatus("|  PID  |    NAME    |    START    |     END     |   STATUS   |");
+	WriteChatStatus("|  PID  |         NAME         |    START    |     END     |   STATUS   |");
 
 	for (const auto& [pid, info] : s_infoMap)
 	{
 		if (predicate(info))
 		{
 			fmt::memory_buffer line;
-			fmt::format_to(fmt::appender(line), "|{:^7}|{:^12}|{:%m/%d %I:%M%p}|{:^13}|{:^12}|",
+			fmt::format_to(fmt::appender(line), "|{:^7}|{:^22}|{:%m/%d %I:%M%p}|{:^13}|{:^12}|",
 				pid,
-				info.name.length() > 12 ? info.name.substr(0, 9) + "..." : info.name,
+				info.name.length() > 12 ? info.name.substr(0, 19) + "..." : info.name,
 				info.startTime,
 				info.status == LuaThreadStatus::Exited ? fmt::format("{:%m/%d %I:%M%p}", info.endTime) : "",
 				info.status_string());
@@ -1312,7 +1312,7 @@ void LuaEnvironmentSettings::ConfigureLuaState(sol::state_view sv)
 		}
 		formattedRequirePaths.push_back("{originalPath}");
 
-		sv["package"]["path"] = fmt::format(join(formattedRequirePaths, ";"),
+		sv["package"]["path"] = fmt::format(fmt::runtime(join(formattedRequirePaths, ";")),
 			fmt::arg("luaDir", luaDir),
 			fmt::arg("moduleDir", moduleDir),
 			fmt::arg("jitVersion", m_jitversion),

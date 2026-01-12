@@ -547,12 +547,14 @@ std::pair<std::string, std::string> GetEQGameVersionStrings(const std::string& P
 	for (size_t i = 0; i < size; ++i)
 	{
 		uint8_t* pData = pBuf + i;
+		bool skip = false;
 
-		for (size_t q = 0; q < lengthof(pattern); ++q)
+		for (size_t q = 0; q < lengthof(pattern) && !skip; ++q)
 		{
 			if ((pData[q] & mask[q]) != pattern[q])
-				goto next;
+				skip = true;
 		}
+		if (skip) continue;
 
 		// if we made it here, the pattern matches. convert our physical offset into a relative virtual address.
 		uintptr_t baseRva = 0;
@@ -566,7 +568,7 @@ std::pair<std::string, std::string> GetEQGameVersionStrings(const std::string& P
 
 		uintptr_t stringRef = stringRefRVA + stringRefDisplacement;
 		if (!convertAddress(peFile, stringRef, AddressType::RelativeVirtualAddress, AddressType::VirtualAddress, stringRefVirtualAddress))
-			continue; // failed to convert address. its probably not a valid address..?
+			continue; // failed to convert address. its probably not a valid address...?
 		
 		if (stringRefVirtualAddress != versionStringVirtualAddress)
 			continue; // not the string we're looking for.
@@ -583,12 +585,7 @@ std::pair<std::string, std::string> GetEQGameVersionStrings(const std::string& P
 		eqDate = ReadStringAtVA(peFile.get(), dateVA);
 		eqTime = ReadStringAtVA(peFile.get(), timeVA);
 		break;
-
-	next:
-		continue;
 	}
-
-
 #else
 	// a.k.a. convert rva to address.
 	PIMAGE_SECTION_HEADER pImgSect = ImageRvaToSection(nthdrs, pBuf, (ULONG)versionStringPhysicalOffset);
@@ -638,26 +635,18 @@ std::pair<std::string, std::string> GetEQGameVersionStrings(const std::string& P
 
 std::string GetInjecteePath()
 {
-	static std::string path;
-	if (path.empty())
+	static std::string injecteePath;
+	if (injecteePath.empty())
 	{
+		std::error_code ec;
+
 		// Create path to MQ2Main.dll
-		char szModuleFile[MAX_PATH] = { 0 };
-		GetModuleFileNameA(nullptr, szModuleFile, 255);
+		fs::path currentPath = fs::current_path(ec);
 
-		if (char* pDest = strrchr(szModuleFile, '\\'))
-		{
-			pDest[0] = '\0';
-
-			path = fmt::format("{}\\{}", szModuleFile, s_mainDLL);
-		}
-		else
-		{
-			path = szModuleFile;
-		}
+		injecteePath = (currentPath / s_mainDLL).string();
 	}
 
-	return path;
+	return injecteePath;
 }
 
 std::vector<DWORD> GetAllEqGameSessions()
@@ -954,9 +943,20 @@ static InjectResult DoInject(uint32_t PID)
 	HMODULE hEqGameMod = (HMODULE)GetEQGameBaseAddressByPID(PID);
 	if (!hEqGameMod)
 	{
+		DWORD lastError = GetLastError();
+
+#if !defined(_WIN64)
+		if (lastError == ERROR_PARTIAL_COPY)
+		{
+			SPDLOG_ERROR("Failed to get eqgame.exe base address for pid={}: eqgame.exe "
+				"process is 64-bit but the launcher is 32-bit", PID);
+			return InjectResult::FailedPermanent;
+		}
+#endif
+
 		// Something went wrong - we couldn't get the EQ base address
 		SPDLOG_ERROR("{}",
-			fmt::windows_error(GetLastError(), "Failed to get eqgame.exe base address for pid={}", PID).what());
+			fmt::windows_error(lastError, "Failed to get eqgame.exe base address for pid={}", PID).what());
 		return InjectResult::FailedRetry;
 	}
 
@@ -1028,7 +1028,7 @@ static InjectResult DoInject(uint32_t PID)
 	void* pRemoteBuffer = (void*)::VirtualAllocEx(hEQGame.get(), nullptr, 1024, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 
 	std::string injectee = GetInjecteePath();
-	std::filesystem::path injecteePath{ injectee };
+	fs::path injecteePath{ injectee };
 	auto injecteeDirectory = injecteePath.parent_path().string();
 
 	// Call SetDllDirectoryA(<mq2 directory>)
@@ -1163,7 +1163,7 @@ bool InitializeInjector(bool injectOnce)
 	std::string injectee = GetInjecteePath();
 
 	std::error_code ec;
-	if (!std::filesystem::exists(injectee, ec))
+	if (!fs::exists(injectee, ec))
 	{
 		SPDLOG_ERROR("Fatal Error: Could not find MQ2Main.dll");
 		MessageBox(nullptr, "Could not find MQ2Main.dll. Make sure that the file exists next to MacroQuest.exe and try again.\n\nMacroQuest will now exit.", "Could not start MacroQuest", MB_SYSTEMMODAL | MB_OK | MB_ICONERROR);
