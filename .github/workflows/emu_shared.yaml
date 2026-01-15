@@ -139,6 +139,9 @@ jobs:
       - name: Build MQActorFollow
         run: msbuild plugins/MQActorFollow/MQActorFollow.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
+      - name: Build MQRemote
+        run: msbuild plugins/MQRemote/MQRemote.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
+
       - name: Build MQRespawn
         run: msbuild plugins/MQRespawn/MQRespawn.vcxproj /p:Configuration=${{env.config}} /p:Platform=${{env.platform}}
 
