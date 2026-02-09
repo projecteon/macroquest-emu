@@ -45,16 +45,16 @@ jobs:
         run: git clone https://github.com/RedGuides/MQ2BardSwap.git plugins/mq2bardswap
       
       - name: Clone MQ2ConstantAffinity
-        run: git clone -f https://github.com/martinlindhe/MQ2ConstantAffinity.git plugins/mq2constantaffinity
+        run: git clone https://github.com/martinlindhe/MQ2ConstantAffinity.git plugins/mq2constantaffinity
       
       - name: Clone MQ2Dan
-        run: git clone -f https://github.com/dannuic/MQ2Dan.git plugins/mq2Dan
+        run: git clone https://github.com/dannuic/MQ2Dan.git plugins/mq2Dan
       
       - name: Clone MQ2DotNet
-        run: git clone -f https://github.com/projecteon/MQ2DotNet.git plugins/mq2dotnet
+        run: git clone https://github.com/projecteon/MQ2DotNet.git plugins/mq2dotnet
       
       - name: Clone MQ2EasyFind
-        run: git clone -f https://github.com/brainiac/MQ2EasyFind.git plugins/mq2easyfind
+        run: git clone https://github.com/brainiac/MQ2EasyFind.git plugins/mq2easyfind
       
       - name: Clone MQ2EQBC
         run: git clone https://github.com/RedGuides/MQ2EQBC.git plugins/mq2eqbc
@@ -84,10 +84,10 @@ jobs:
         run: git clone https://github.com/RedGuides/MQ2Twist.git plugins/mq2twist
         
       - name: Clone MQ2Cast
-        run: git clone -f https://github.com/RedGuides/MQ2Cast.git plugins/mq2cast
+        run: git clone https://github.com/RedGuides/MQ2Cast.git plugins/mq2cast
         
       - name: Clone MQ2Debuffs
-        run: git clone -f https://github.com/RedGuides/MQ2Debuffs.git plugins/mq2debuffs
+        run: git clone https://github.com/RedGuides/MQ2Debuffs.git plugins/mq2debuffs
 
       - name: Update submoules
         run: git submodule update --init --recursive
