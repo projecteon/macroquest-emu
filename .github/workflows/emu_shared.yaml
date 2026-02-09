@@ -23,68 +23,71 @@ jobs:
           ref: ${{ env.branch }}
           submodules: recursive
       
-      - name: Add MQActorFollow to submodules
-        run: git submodule add -f https://github.com/peonMQ/MQActorFollow.git plugins/MQActorFollow
+      - name: Clone MQActorFollow
+        run: git clone https://github.com/peonMQ/MQActorFollow.git plugins/MQActorFollow
 
-      - name: Add MQRemote to submodules
-        run: git submodule add -f https://github.com/peonMQ/MQRemote.git plugins/MQRemote
+      - name: Clone MQCharInfo
+        run: git clone https://github.com/Cezero/MQCharInfo.git plugins/MQCharInfo
 
-      - name: Add MQRespawn to submodules
-        run: git submodule add -f https://github.com/peonMQ/MQRespawn.git plugins/MQRespawn
+      - name: Clone MQRemote
+        run: git clone https://github.com/peonMQ/MQRemote.git plugins/MQRemote
 
-      - name: Add MQ2AdvPath to submodules
-        run: git submodule add -f https://github.com/RedGuides/MQ2AdvPath.git plugins/mq2advpath
+      - name: Clone MQRespawn
+        run: git clone https://github.com/peonMQ/MQRespawn.git plugins/MQRespawn
 
-      - name: Add MQ2AutoAccept to submodules
-        run: git submodule add -f https://github.com/RedGuides/MQ2AutoAccept.git plugins/mq2autoaccept
+      - name: Clone MQ2AdvPath
+        run: git clone https://github.com/RedGuides/MQ2AdvPath.git plugins/mq2advpath
+
+      - name: Clone MQ2AutoAccept
+        run: git clone https://github.com/RedGuides/MQ2AutoAccept.git plugins/mq2autoaccept
         
-      - name: Add MQ2BardSwap to submodules
-        run: git submodule add -f https://github.com/RedGuides/MQ2BardSwap.git plugins/mq2bardswap
+      - name: Clone MQ2BardSwap
+        run: git clone https://github.com/RedGuides/MQ2BardSwap.git plugins/mq2bardswap
       
-      - name: Add MQ2ConstantAffinity to submodules
-        run: git submodule add -b main -f https://github.com/martinlindhe/MQ2ConstantAffinity.git plugins/mq2constantaffinity
+      - name: Clone MQ2ConstantAffinity
+        run: git clone -f https://github.com/martinlindhe/MQ2ConstantAffinity.git plugins/mq2constantaffinity
       
-      - name: Add MQ2Dan to submodules
-        run: git submodule add -b master -f https://github.com/dannuic/MQ2Dan.git plugins/mq2Dan
+      - name: Clone MQ2Dan
+        run: git clone -f https://github.com/dannuic/MQ2Dan.git plugins/mq2Dan
       
-      - name: Add MQ2DotNet to submodules
-        run: git submodule add -b master -f https://github.com/projecteon/MQ2DotNet.git plugins/mq2dotnet
+      - name: Clone MQ2DotNet
+        run: git clone -f https://github.com/projecteon/MQ2DotNet.git plugins/mq2dotnet
       
-      - name: Add MQ2EasyFind to submodules
-        run: git submodule add -b master -f https://github.com/brainiac/MQ2EasyFind.git plugins/MQ2EasyFind
+      - name: Clone MQ2EasyFind
+        run: git clone -f https://github.com/brainiac/MQ2EasyFind.git plugins/mq2easyfind
       
-      - name: Add MQ2EQBC to submodules
-        run: git submodule add -f https://github.com/RedGuides/MQ2EQBC.git plugins/mq2eqbc
+      - name: Clone MQ2EQBC
+        run: git clone https://github.com/RedGuides/MQ2EQBC.git plugins/mq2eqbc
         
-      - name: Add MQ2Exchange to submodules
-        run: git submodule add -f https://github.com/RedGuides/MQ2Exchange.git plugins/mq2exchange
+      - name: Clone MQ2Exchange
+        run: git clone https://github.com/RedGuides/MQ2Exchange.git plugins/mq2exchange
          
-      - name: Add MQ2LinkDB to submodules
-        run: git submodule add -f https://github.com/RedGuides/MQ2LinkDB.git plugins/mq2linkdb
+      - name: Clone MQ2LinkDB
+        run: git clone https://github.com/RedGuides/MQ2LinkDB.git plugins/mq2linkdb
         
-      - name: Add MQ2Medley to submodules
-        run: git submodule add -f https://github.com/RedGuides/MQ2Medley.git plugins/mq2medley
+      - name: Clone MQ2Medley
+        run: git clone https://github.com/RedGuides/MQ2Medley.git plugins/mq2medley
         
-      - name: Add MQ2MoveUtils to submodules
-        run: git submodule add -f https://github.com/RedGuides/MQ2MoveUtils.git plugins/mq2moveutils
+      - name: Clone MQ2MoveUtils
+        run: git clone https://github.com/RedGuides/MQ2MoveUtils.git plugins/mq2moveutils
          
-      - name: Add MQNav to submodules
-        run: git submodule add -f https://github.com/brainiac/MQ2Nav.git plugins/mq2nav
+      - name: Clone MQNav
+        run: git clone https://github.com/brainiac/MQ2Nav.git plugins/mq2nav
        
-      - name: Add MQ2NetBots to submodules
-        run: git submodule add -f https://github.com/RedGuides/MQ2NetBots.git plugins/mq2netbots
+      - name: Clone MQ2NetBots
+        run: git clone https://github.com/RedGuides/MQ2NetBots.git plugins/mq2netbots
       
-      - name: Add MQ2SpawnMaster to submodules
-        run: git submodule add -f https://github.com/RedGuides/MQ2SpawnMaster.git plugins/mq2spawnmaster
+      - name: Clone MQ2SpawnMaster
+        run: git clone https://github.com/RedGuides/MQ2SpawnMaster.git plugins/mq2spawnmaster
         
-      - name: Add MQ2Twist to submodules
-        run: git submodule add -f https://github.com/RedGuides/MQ2Twist.git plugins/mq2twist
+      - name: Clone MQ2Twist
+        run: git clone https://github.com/RedGuides/MQ2Twist.git plugins/mq2twist
         
-      - name: Add MQ2Cast to submodules
-        run: git submodule add -b master -f https://github.com/RedGuides/MQ2Cast.git plugins/MQ2Cast
+      - name: Clone MQ2Cast
+        run: git clone -f https://github.com/RedGuides/MQ2Cast.git plugins/mq2cast
         
-      - name: Add MQ2Debuffs to submodules
-        run: git submodule add -b master -f https://github.com/RedGuides/MQ2Debuffs.git plugins/MQ2Debuffs
+      - name: Clone MQ2Debuffs
+        run: git clone -f https://github.com/RedGuides/MQ2Debuffs.git plugins/mq2debuffs
 
       - name: Update submoules
         run: git submodule update --init --recursive
