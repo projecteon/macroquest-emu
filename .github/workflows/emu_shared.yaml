@@ -55,9 +55,9 @@ jobs:
       
       - name: Clone MQ2EasyFind
         run: git clone https://github.com/brainiac/MQ2EasyFind.git plugins/mq2easyfind
-      
-      - name: Clone MQ2EQBC
-        run: git clone https://github.com/RedGuides/MQ2EQBC.git plugins/mq2eqbc
+
+      - name: Add MQ2EQBC to submodules
+        run: git submodule add -f https://github.com/RedGuides/MQ2EQBC.git plugins/mq2eqbc
         
       - name: Clone MQ2Exchange
         run: git clone https://github.com/RedGuides/MQ2Exchange.git plugins/mq2exchange
