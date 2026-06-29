@@ -10,7 +10,7 @@ on:
 env:
   config: Release
   platform: "${{ inputs.client_target == 'emu' && 'Win32' || 'x64' }}"
-  branch: "${{ inputs.client_target == 'emu' && 'emu' || 'master' }}"
+  branch: "${{ inputs.client_target == 'emu' && 'master-selfbuild' || 'master' }}"
 
 jobs:
   fetch:

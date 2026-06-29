@@ -2,14 +2,14 @@ name: Continous Deploy MacroQuest [EMU]
 
 on:
   push:
-    branches: [ "emu" ]
+    branches: [ "master-selfbuild" ]
   pull_request:
-    branches: [ "emu" ]
+    branches: [ "master-selfbuild" ]
 
 env:
   config: Release
   platform: Win32
-  branch: emu
+  branch: master-selfbuild
 
 jobs:
   s1:

@@ -7,7 +7,7 @@ on:
 env:
   config: Release
   platform: Win32
-  branch: emu
+  branch: master-selfbuild
   publishDir: ./build/bin/release
 
 jobs:
